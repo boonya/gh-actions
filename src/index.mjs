@@ -63,12 +63,12 @@ try {
 	const content = await parseFile(filepath);
 	log.info('This is the current content:', content);
 
-	const builds = redoBuilds(props, content?.builds);
+	const builds = redoBuilds({ref,label,sha}, content?.builds);
 
 	const newContent = {
 		builds,
-		homepage: props.homepage,
-		repo: props.repo,
+		homepage,
+		repo,
 	};
 
 	log.info('This is gonna be new content:', newContent);
