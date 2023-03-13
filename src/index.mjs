@@ -54,7 +54,8 @@ try {
 
 	const filepath = path.resolve(file);
 
-  console.log({__dirname, filepath});
+  const dirname = path.dirname('.');
+  console.log({__dirname, dirname, filepath});
 
   const files = await readdir(__dirname);
   console.log('files: ', files);
