@@ -23,8 +23,6 @@ inputs:
     # required: true
     description: "Sha has of label"
     default: ${{ github.event.after }} # sha hash of head
-
-
 outputs:
   time: # id of output
     description: "The time we greeted you"

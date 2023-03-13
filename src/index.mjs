@@ -1,5 +1,7 @@
 import core from '@actions/core';
 import github from '@actions/github';
+import {readFile, writeFile} from 'fs/promises';
+import path from 'path';
 
 try {
   const file = core.getInput('file');
@@ -17,11 +19,34 @@ try {
     label,
     sha,
   });
+
   const time = (new Date()).toTimeString();
   core.setOutput("time", time);
   // Get the JSON webhook payload for the event that triggered the workflow
   const payload = JSON.stringify(github.context.payload, undefined, 2)
   console.log(`The event payload: ${payload}`);
+
+	const filepath = path.resolve(file);
+
+	const content = parseFile(filepath);
+	log.info('This is the current content:', content);
+
+	const builds = redoBuilds(props, content?.builds);
+
+	const newContent = {
+		builds,
+		homepage: props.homepage,
+		repo: props.repo,
+	};
+
+	log.info('This is gonna be new content:', newContent);
+
+	const string = JSON.stringify(newContent);
+
+	// eslint-disable-next-line security/detect-non-literal-fs-filename
+	await writeFile(file, string);
+
+	log.info('Catalog script finished.');
 } catch (error) {
   core.setFailed(error.message);
 }
