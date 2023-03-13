@@ -2,6 +2,9 @@ import core from '@actions/core';
 import github from '@actions/github';
 import {readFile, writeFile, readdir} from 'fs/promises';
 import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(new URL(import.meta.url)));
 
 const log = console;
 
@@ -51,8 +54,10 @@ try {
 
 	const filepath = path.resolve(file);
 
-  const files = await readdir(filepath);
-  console.log(files);
+  console.log({__dirname, filepath});
+
+  const files = await readdir(__dirname);
+  console.log('files: ', files);
 
 	const content = await parseFile(filepath);
 	log.info('This is the current content:', content);
