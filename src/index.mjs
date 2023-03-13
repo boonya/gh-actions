@@ -54,10 +54,10 @@ try {
 
 	const filepath = path.resolve(file);
 
-  const dirname = path.dirname('.');
+  const dirname = path.resolve('.');
   console.log({__dirname, dirname, filepath});
 
-  const files = await readdir(__dirname);
+  const files = await readdir(dirname);
   console.log('files: ', files);
 
 	const content = await parseFile(filepath);
