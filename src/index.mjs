@@ -1,6 +1,6 @@
 import core from '@actions/core';
 import github from '@actions/github';
-import {readFile, writeFile} from 'fs/promises';
+import {readFile, writeFile, readdir} from 'fs/promises';
 import path from 'path';
 
 const log = console;
@@ -45,13 +45,16 @@ try {
 
   const time = (new Date()).toTimeString();
   core.setOutput("time", time);
-  // Get the JSON webhook payload for the event that triggered the workflow
-  const payload = JSON.stringify(github.context.payload, undefined, 2)
-  console.log(`The event payload: ${payload}`);
+  // // Get the JSON webhook payload for the event that triggered the workflow
+  // const payload = JSON.stringify(github.context.payload, undefined, 2)
+  // console.log(`The event payload: ${payload}`);
 
 	const filepath = path.resolve(file);
 
-	const content = parseFile(filepath);
+  const files = await readdir(filepath);
+  console.log(files);
+
+	const content = await parseFile(filepath);
 	log.info('This is the current content:', content);
 
 	const builds = redoBuilds(props, content?.builds);
