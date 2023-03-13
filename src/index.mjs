@@ -3,6 +3,29 @@ import github from '@actions/github';
 import {readFile, writeFile} from 'fs/promises';
 import path from 'path';
 
+const log = console;
+
+async function parseFile(file) {
+	try {
+	// eslint-disable-next-line security/detect-non-literal-fs-filename
+		const content = await readFile(new URL(file, import.meta.url));
+		return JSON.parse(content);
+	}
+	catch (err) {
+		log.warn('parseFile failed.', err);
+		return {};
+	}
+}
+
+function redoBuilds(props, builds = []) {
+	return [...builds.filter((build) => build.label !== props.label), {
+		ref: props.ref,
+		label: props.label,
+		sha: props.sha,
+		updated: new Date().toISOString(),
+	}];
+}
+
 try {
   const file = core.getInput('file');
   const repo = core.getInput('repo');
