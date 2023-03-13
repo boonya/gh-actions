@@ -1,24 +1,26 @@
 name: gh-actions
 description: Custom set of GitHub actions for my own needs
 inputs:
-  file:
+  catalog:
     required: true
     description: "Path to the catalog file."
+  remove:
+    description: "Set true if you want to remove appropriate build from the catalog."
+  ref:
+    description: "refs/heads/branch-name, refs/tags/tag or refs/pulls/1/merge"
+    default: ${{ github.ref }}
+  sha:
+    description: "sha hash of current HEAD"
+    default: ${{ github.event.after }}
+  label:
+    description: "A tag or branch name"
+    default: ${{ github.head_ref || github.ref_name }}
   repo:
     description: "GitHub Repository url. E.g. https://github.com/boonya/actions/"
     default: ${{ github.event.repository.html_url }}
   homepage:
     description: "GitHub Pages url. E.g. https://boonya.github.io/actions/"
     default: ${{ github.event.repository.homepage }}
-  ref:
-    description: "refs/heads/branch-name, refs/tags/tag or refs/pulls/1/merge"
-    default: ${{ github.ref }}
-  label:
-    description: "A tag or branch name"
-    default: ${{ github.head_ref || github.ref_name }}
-  sha:
-    description: "Sha of HEAD"
-    default: ${{ github.event.after }}
 runs:
   using: "node16"
   main: "index.mjs"
