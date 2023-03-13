@@ -17,7 +17,7 @@
     "url": "https://github.com/boonya/gh-actions/issues"
   },
   "homepage": "https://github.com/boonya/gh-actions#readme",
-  "main": "src/index.mjs",
+  "main": "index.mjs",
   "engines": {
     "node": "~16.17",
     "npm": "~8.15"
