@@ -14,6 +14,7 @@ inputs:
   ref:
     # required: true
     description: "refs/heads/branch-name, refs/tags/tag or refs/pulls/1/merge"
+    default: ${{ github.ref }} # refs/heads/branch-name or refs/tags/tag-name or refs/pulls/8/merge
   label:
     # required: true
     description: "A tag or branch name"
@@ -21,6 +22,8 @@ inputs:
   sha:
     # required: true
     description: "Sha has of label"
+    default: ${{ github.event.after }} # sha hash of head
+
 
 outputs:
   time: # id of output
