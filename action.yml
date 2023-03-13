@@ -1,0 +1,30 @@
+name: gh-actions
+description: Custom set of GitHub actions for my own needs
+inputs:
+  file:
+    required: true
+    description: "Path to the catalog file."
+  repo:
+    # required: true
+    description: "GitHub Repository url. E.g. https://github.com/boonya/actions/"
+    default: ${{ github.event.repository.html_url }}
+  homepage:
+    description: "GitHub Pages url. E.g. https://boonya.github.io/actions/"
+    default: ${{ github.event.repository.homepage }}
+  ref:
+    # required: true
+    description: "refs/heads/branch-name, refs/tags/tag or refs/pulls/1/merge"
+  label:
+    # required: true
+    description: "A tag or branch name"
+    default: ${{ github.head_ref || github.ref_name }}
+  sha:
+    # required: true
+    description: "Sha has of label"
+
+outputs:
+  time: # id of output
+    description: "The time we greeted you"
+runs:
+  using: "node16"
+  main: "src/index.mjs"
