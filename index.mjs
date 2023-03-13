@@ -18,7 +18,7 @@ async function parseFile(catalog) {
 }
 
 function redoBuilds(props, builds = []) {
-  if (removing) {
+  if (props.removing?.toLowerCase().trim() === 'true') {
     return builds.filter((build) => build.ref !== props.ref);
   }
   return [...builds.filter((build) => build.ref !== props.ref), {

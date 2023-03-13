@@ -6,6 +6,7 @@ inputs:
     description: "Path to the catalog file."
   remove:
     description: "Set true if you want to remove appropriate build from the catalog."
+    default: "false"
   ref:
     description: "refs/heads/branch-name, refs/tags/tag or refs/pulls/1/merge"
     default: ${{ github.ref }}
